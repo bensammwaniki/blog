@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% import 'macros.html'as macros%}
+{% block styles%}
+    {{ super() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    {% endblock %}
+    <body>
+    {% block content %}
+<div class="container-fluid" style="background-color:#04CED5; padding: 50px;min-height: 100vh;">
+        <a href="{{ url_for('main.new_pitch') }}"><button style="color: rgb(255, 255, 255);" class="btn btn-success">Post new pitch</button></a>
+            <br>
+            <br>
+            <div class="row">
+                        {{macros.displayPitches(pitch)}}
+            </div>
+
+                <div class="row">
+                    <div class="card" style="width: 25rem;">
+                        <div class="card-header">
+                          Featured
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Special title treatment</h5>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                          <a href="#"><button class="btn btn-outline-success btn-sm like">like</button></a>
+                          <a href="#"><button class="btn btn-outline-warning btn-sm dislike">dislike</button></a>
+                          <a href="#" class="btn btn-outline-warning btn-sm" id="comment">comment</a>
+                        </div>
+                      </div>
+
+                      <div class="card" style="width: 25rem;">
+                        <div class="card-header">
+                          Featured
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Special title treatment</h5>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                          <a href="#"><button class="btn btn-outline-success btn-sm like">like</button></a>
+                          <a href="#"><button class="btn btn-outline-warning btn-sm dislike">dislike</button></a>
+                          <a href="#" class="btn btn-outline-warning btn-sm" id="comment">comment</a>
+                        </div>
+                      </div>
+
+
+                      <div class="card" style="width: 25rem;">
+                        <div class="card-header">
+                          Featured
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Special title treatment</h5>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                          <a href="#"><button class="btn btn-outline-success btn-sm like">like</button></a>
+                          <a href="#"><button class="btn btn-outline-warning btn-sm dislike">dislike</button></a>
+                          <a href="#" class="btn btn-outline-warning btn-sm" id="comment">comment</a>
+                        </div>
+                      </div>
+
+                      <div class="card" style="width: 25rem;">
+                        <div class="card-header">
+                          Featured
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Special title treatment</h5>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                          <a href="#"><button class="btn btn-outline-success btn-sm like">like</button></a>
+                          <a href="#"><button class="btn btn-outline-warning btn-sm dislike">dislike</button></a>
+                          <a href="#" class="btn btn-outline-warning btn-sm" id="comment">comment</a>
+                        </div>
+                      </div>
+                    
+                </div>   
+</div>  
+<style>
+    .row{
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+    var like=0
+    var dislike=0
+    $(".like").click(function(){
+        like++;
+        document.getElementsByClassName("like").innerHTML="like" + like
+
+});
+$(".dislike").click(function(){
+        dislike++;
+        document.getElementById("mane").innerHTML="dislike" + dislike
+
+});
+    
+})
+
+</script>
+{% endblock  %}
