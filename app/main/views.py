@@ -17,9 +17,9 @@ def index():
    '''
   
    title = 'impress me'
-   pitch=Pitch.query.order_by(Pitch.id.desc()).all()
+#    pitch=Pitch.query.order_by(Pitch.id.desc()).all()
 
-   return render_template('index.html', title= title,pitch=pitch)
+   return render_template('index.html', title= title)
 
 @main.route('/pitch/new', methods=['GET','POST'])
 @login_required
