@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>impress me</title>
+    <title>Bensam blog</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
     crossorigin="anonymous">
@@ -14,7 +14,7 @@
 {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">Impress me</a>
+          <a class="navbar-brand" href="/">Bensam <b>BLOG</b></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -36,11 +36,15 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('auth.register')}}" class="btn btn-outline-success">Sign up</a>
               </li>
-    
+              <li class="nav-item">
+              <a href="{{ url_for('main.new_pitch') }}"><button style="color: rgb(255, 255, 255);" class="btn btn-success">Post new pitch</button></a>
+              </li>
             </ul>
+            {% if current_user.is_authenticated %}
             <span class="navbar-text">
-              Always impress me <em style="color: white;">{{ current_user.username }}  </em>!!!
+              Welcome <em style="color: white;">{{ current_user.username }}  </em>!!!
             </span>
+            {% endif %}
           </div>
         </div>
       </nav>
