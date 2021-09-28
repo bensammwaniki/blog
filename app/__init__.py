@@ -1,4 +1,3 @@
-from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from config import config_options
@@ -15,11 +14,11 @@ mail = Mail()
 bootstrap = Bootstrap()
 
 db = SQLAlchemy()
-def new_func():
-    photos = UploadSet('photos',IMAGES)
-    return photos
+# def new_func():
+#     photos = UploadSet('photos',IMAGES)
+#     return photos
 
-photos = new_func()
+# photos = new_func()
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -39,6 +38,6 @@ def create_app(config_name):
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint,url_prefix = '/authenticate')
 
-    configure_uploads(app,photos)
+    # configure_uploads(app,photos)
 
     return app 
