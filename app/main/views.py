@@ -1,9 +1,9 @@
 from flask import Flask
 from . import main
-from flask_login import login_required
+from flask_login import login_required,current_user
 from flask import render_template, redirect, url_for,flash,request
 import datetime
-from ..models import Pitch, Comment,Subscriber
+from ..models import Pitch, Comment,Subscriber,Post,User
 from .forms import PitchForm , CommentForm,SubscribeForm
 from .. import db
 
@@ -40,22 +40,23 @@ def new_pitch():
 
     return render_template('pitches.html', title='New Post', pitch_form=form, post ='New Post') 
 
-    
-@main.route("/create-post",methods =['GET','POST'])
-@login_required
-def create_post():
-    if request.method == 'POST':
-        text = request.form.get('text')
-        if not text:
-            flash("Post can not be empty",category='error')
-        else:
-            post = Post(text=text,author =current_user.id)
-            db.session.add(post)
-            db.session.commit()
-            flash('Post has been created successfully',category='success')
-            return redirect(url_for('main.home'))
-    return render_template('create_post.html',user = current_user)      
 
+@main.route("/create-comment/<post_id>", methods=['POST'])
+@login_required
+def create_comment(post_id):
+    text = request.form.get('text')
+    if not text:
+        flash('Comment cannot be empty.', category='error')
+    else:
+        post = Post.query.filter_by(id=post_id)
+        if post:
+            comment = Comment(
+                text=text, author=current_user.id, post_id=post_id)
+            db.session.add(comment)
+            db.session.commit()
+        else:
+            flash('Post does not exist.', category='error')
+    return redirect(url_for('main.home'))
 
 @main.route('/subscription',methods=['GET','POST'])
 def subscription():
