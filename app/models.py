@@ -39,10 +39,8 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
-    author = db.Column(db.Integer, db.ForeignKey(
-        'users.id', ondelete="CASCADE"), nullable=False)
+    author = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
     comments = db.relationship('Comment', backref='post', passive_deletes=True)
-    likes = db.relationship('Like', backref='post', passive_deletes=True)
 class Role(db.Model):
     __tablename__ = 'roles'
 
@@ -86,6 +84,7 @@ class Comment(db.Model):
     comment_content = db.Column(db.String())
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitch.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id', ondelete="CASCADE"), nullable=False)
 
    
 
