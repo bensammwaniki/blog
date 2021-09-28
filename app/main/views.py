@@ -1,9 +1,9 @@
 from flask import Flask
 from . import main
-from flask_login import login_required,current_user
-from flask import render_template, redirect, url_for,flash,request
+from flask_login import login_required
+from flask import render_template, redirect, url_for,flash
 import datetime
-from ..models import Pitch, Comment,Subscriber,Post,User
+from ..models import Pitch, Comment,Subscriber,User
 from .forms import PitchForm , CommentForm,SubscribeForm
 from .. import db
 
@@ -39,24 +39,6 @@ def new_pitch():
         return redirect(url_for('main.index', id=pitch.id))
 
     return render_template('pitches.html', title='New Post', pitch_form=form, post ='New Post') 
-
-
-@main.route("/create-comment/<post_id>", methods=['POST'])
-@login_required
-def create_comment(post_id):
-    text = request.form.get('text')
-    if not text:
-        flash('Comment cannot be empty.', category='error')
-    else:
-        post = Post.query.filter_by(id=post_id)
-        if post:
-            comment = Comment(
-                text=text, author=current_user.id, post_id=post_id)
-            db.session.add(comment)
-            db.session.commit()
-        else:
-            flash('Post does not exist.', category='error')
-    return redirect(url_for('main.home'))
 
 @main.route('/subscription',methods=['GET','POST'])
 def subscription():

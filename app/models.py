@@ -3,7 +3,6 @@ from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from . import login_manager
-from sqlalchemy.sql import func
 
 
 @login_manager.user_loader
@@ -35,12 +34,7 @@ class User(UserMixin,db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.Text, nullable=False)
-    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
-    author = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
-    comments = db.relationship('Comment', backref='post', passive_deletes=True)
+
 class Role(db.Model):
     __tablename__ = 'roles'
 
@@ -84,7 +78,6 @@ class Comment(db.Model):
     comment_content = db.Column(db.String())
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitch.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id', ondelete="CASCADE"), nullable=False)
 
    
 
