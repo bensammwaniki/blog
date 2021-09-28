@@ -1,7 +1,7 @@
 from flask import Flask
 from . import main
 from flask_login import login_required
-from flask import render_template, redirect, url_for,flash
+from flask import render_template, redirect, url_for,flash,request
 import datetime
 from ..models import Pitch, Comment,Subscriber
 from .forms import PitchForm , CommentForm,SubscribeForm
@@ -13,10 +13,10 @@ app = Flask(__name__)
 @main.route("/")
 def index():
    '''
-   title = "impress me"
+   title = "Bensam blog"
    '''
   
-   title = 'impress me'
+   title = 'Bensam blog'
 #    pitch=Pitch.query.order_by(Pitch.id.desc()).all()
 
    return render_template('index.html', title= title)
@@ -38,7 +38,23 @@ def new_pitch():
         flash('Your was a success!', 'success')
         return redirect(url_for('main.index', id=pitch.id))
 
-    return render_template('pitches.html', title='New Post', pitch_form=form, post ='New Post')   
+    return render_template('pitches.html', title='New Post', pitch_form=form, post ='New Post') 
+
+    
+@main.route("/create-post",methods =['GET','POST'])
+@login_required
+def create_post():
+    if request.method == 'POST':
+        text = request.form.get('text')
+        if not text:
+            flash("Post can not be empty",category='error')
+        else:
+            post = Post(text=text,author =current_user.id)
+            db.session.add(post)
+            db.session.commit()
+            flash('Post has been created successfully',category='success')
+            return redirect(url_for('main.home'))
+    return render_template('create_post.html',user = current_user)      
 
 
 @main.route('/subscription',methods=['GET','POST'])
