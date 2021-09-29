@@ -17,9 +17,9 @@ def index():
    '''
   
    title = 'Bensam blog'
-#    pitch=Pitch.query.order_by(Pitch.id.desc()).all()
+   pitch=Pitch.query.order_by(Pitch.id.desc()).all()
 
-   return render_template('index.html', title = title,)
+   return render_template('index.html', title = title,pitch = pitch,)
 
 @main.route('/pitch/new', methods=['GET','POST'])
 @login_required
