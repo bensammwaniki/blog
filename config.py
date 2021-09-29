@@ -17,8 +17,8 @@ class Config:
 
     pass
 
-# class TestConfig(Config):
-#     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://acces:Access@localhost/pitches_test'
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/blog_test'
 
 
 
