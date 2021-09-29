@@ -39,7 +39,7 @@ Incase of any queries you can reach me through email bensammwaniki@gmail.com
 
 
 ### License
-This Project comes wit MIT License. 
+This Project comes wit MIT License. .
 
 
 MIT License
